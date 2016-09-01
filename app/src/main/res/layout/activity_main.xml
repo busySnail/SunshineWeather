@@ -11,7 +11,7 @@
         android:layout_height="110dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/octocat" />
+        android:src="@drawable/bottom_img" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/button_search"
-            android:hint="@string/hit_username"
+            android:hint="@string/hit_cityname"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:textColor="@color/white"

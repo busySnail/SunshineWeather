@@ -18,7 +18,7 @@ public interface HFService {
     String HOST = "https://api.heweather.com/x3/";
 
     @GET("weather")
-    Observable<WeatherAPI> mWeatherAPI(@Query("city") String city, @Query("key") String key);
+    Observable<WeatherAPI> hfWeather(@Query("city") String city, @Query("key") String key);
 
     class Factory {
         public static HFService create() {

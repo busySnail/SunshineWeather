@@ -22,7 +22,7 @@ public class SunShineApplication extends Application{
         return (SunShineApplication)context.getApplicationContext();
     }
 
-    public HFService getGithubService() {
+    public HFService getHFService() {
         if (hfService == null) {
             hfService = HFService.Factory.create();
         }
