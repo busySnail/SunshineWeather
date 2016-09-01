@@ -51,6 +51,27 @@ public class Weather implements Serializable {
             @SerializedName("pm25") public String pm25;
             @SerializedName("qlty") public String qlty;
             @SerializedName("so2") public String so2;
+
+            @Override
+            public String toString() {
+                return "CityEntity{" +
+                        "aqi='" + aqi + '\'' +
+                        ", co='" + co + '\'' +
+                        ", no2='" + no2 + '\'' +
+                        ", o3='" + o3 + '\'' +
+                        ", pm10='" + pm10 + '\'' +
+                        ", pm25='" + pm25 + '\'' +
+                        ", qlty='" + qlty + '\'' +
+                        ", so2='" + so2 + '\'' +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "AqiEntity{" +
+                    "city=" + city +
+                    '}';
         }
     }
 
@@ -70,6 +91,26 @@ public class Weather implements Serializable {
         public static class UpdateEntity implements Serializable {
             @SerializedName("loc") public String loc;
             @SerializedName("utc") public String utc;
+
+            @Override
+            public String toString() {
+                return "UpdateEntity{" +
+                        "loc='" + loc + '\'' +
+                        ", utc='" + utc + '\'' +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "BasicEntity{" +
+                    "city='" + city + '\'' +
+                    ", cnty='" + cnty + '\'' +
+                    ", id='" + id + '\'' +
+                    ", lat='" + lat + '\'' +
+                    ", lon='" + lon + '\'' +
+                    ", update=" + update +
+                    '}';
         }
     }
 
@@ -98,6 +139,14 @@ public class Weather implements Serializable {
         public static class CondEntity implements Serializable {
             @SerializedName("code") public String code;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "CondEntity{" +
+                        "code='" + code + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class WindEntity implements Serializable {
@@ -105,6 +154,30 @@ public class Weather implements Serializable {
             @SerializedName("dir") public String dir;
             @SerializedName("sc") public String sc;
             @SerializedName("spd") public String spd;
+
+            @Override
+            public String toString() {
+                return "WindEntity{" +
+                        "deg='" + deg + '\'' +
+                        ", dir='" + dir + '\'' +
+                        ", sc='" + sc + '\'' +
+                        ", spd='" + spd + '\'' +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "NowEntity{" +
+                    "cond=" + cond +
+                    ", fl='" + fl + '\'' +
+                    ", hum='" + hum + '\'' +
+                    ", pcpn='" + pcpn + '\'' +
+                    ", pres='" + pres + '\'' +
+                    ", tmp='" + tmp + '\'' +
+                    ", vis='" + vis + '\'' +
+                    ", wind=" + wind +
+                    '}';
         }
     }
 
@@ -155,36 +228,105 @@ public class Weather implements Serializable {
         public static class ComfEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "ComfEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class CwEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "CwEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class DrsgEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "DrsgEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class FluEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "FluEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class SportEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "SportEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class TravEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "TravEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
         }
 
         public static class UvEntity implements Serializable {
             @SerializedName("brf") public String brf;
             @SerializedName("txt") public String txt;
+
+            @Override
+            public String toString() {
+                return "UvEntity{" +
+                        "brf='" + brf + '\'' +
+                        ", txt='" + txt + '\'' +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "SuggestionEntity{" +
+                    "comf=" + comf +
+                    ", cw=" + cw +
+                    ", drsg=" + drsg +
+                    ", flu=" + flu +
+                    ", sport=" + sport +
+                    ", trav=" + trav +
+                    ", uv=" + uv +
+                    '}';
         }
     }
 
@@ -227,6 +369,14 @@ public class Weather implements Serializable {
         public static class AstroEntity implements Serializable {
             @SerializedName("sr") public String sr;
             @SerializedName("ss") public String ss;
+
+            @Override
+            public String toString() {
+                return "AstroEntity{" +
+                        "sr='" + sr + '\'' +
+                        ", ss='" + ss + '\'' +
+                        '}';
+            }
         }
 
         public static class CondEntity implements Serializable {
@@ -234,11 +384,29 @@ public class Weather implements Serializable {
             @SerializedName("code_n") public String codeN;
             @SerializedName("txt_d") public String txtD;
             @SerializedName("txt_n") public String txtN;
+
+            @Override
+            public String toString() {
+                return "CondEntity{" +
+                        "codeD='" + codeD + '\'' +
+                        ", codeN='" + codeN + '\'' +
+                        ", txtD='" + txtD + '\'' +
+                        ", txtN='" + txtN + '\'' +
+                        '}';
+            }
         }
 
         public static class TmpEntity implements Serializable {
             @SerializedName("max") public String max;
             @SerializedName("min") public String min;
+
+            @Override
+            public String toString() {
+                return "TmpEntity{" +
+                        "max='" + max + '\'' +
+                        ", min='" + min + '\'' +
+                        '}';
+            }
         }
 
         public static class WindEntity implements Serializable {
@@ -246,6 +414,32 @@ public class Weather implements Serializable {
             @SerializedName("dir") public String dir;
             @SerializedName("sc") public String sc;
             @SerializedName("spd") public String spd;
+
+            @Override
+            public String toString() {
+                return "WindEntity{" +
+                        "deg='" + deg + '\'' +
+                        ", dir='" + dir + '\'' +
+                        ", sc='" + sc + '\'' +
+                        ", spd='" + spd + '\'' +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "DailyForecastEntity{" +
+                    "astro=" + astro +
+                    ", cond=" + cond +
+                    ", date='" + date + '\'' +
+                    ", hum='" + hum + '\'' +
+                    ", pcpn='" + pcpn + '\'' +
+                    ", pop='" + pop + '\'' +
+                    ", pres='" + pres + '\'' +
+                    ", tmp=" + tmp +
+                    ", vis='" + vis + '\'' +
+                    ", wind=" + wind +
+                    '}';
         }
     }
 
@@ -269,6 +463,41 @@ public class Weather implements Serializable {
             @SerializedName("dir") public String dir;
             @SerializedName("sc") public String sc;
             @SerializedName("spd") public String spd;
+
+            @Override
+            public String toString() {
+                return "WindEntity{" +
+                        "deg='" + deg + '\'' +
+                        ", dir='" + dir + '\'' +
+                        ", sc='" + sc + '\'' +
+                        ", spd='" + spd + '\'' +
+                        '}';
+            }
         }
+
+        @Override
+        public String toString() {
+            return "HourlyForecastEntity{" +
+                    "date='" + date + '\'' +
+                    ", hum='" + hum + '\'' +
+                    ", pop='" + pop + '\'' +
+                    ", pres='" + pres + '\'' +
+                    ", tmp='" + tmp + '\'' +
+                    ", wind=" + wind +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "aqi=" + aqi +
+                ", basic=" + basic +
+                ", now=" + now +
+                ", status='" + status + '\'' +
+                ", suggestion=" + suggestion +
+                ", dailyForecast=" + dailyForecast +
+                ", hourlyForecast=" + hourlyForecast +
+                '}';
     }
 }

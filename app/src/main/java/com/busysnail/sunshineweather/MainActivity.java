@@ -33,7 +33,7 @@ import rx.functions.Func1;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    public static final String KEY="f1eec20bca1e4c899dff787c8eeed52f";
+    public static final String KEY = "f1eec20bca1e4c899dff787c8eeed52f";
 
     private Subscription subscription;
     private RecyclerView reposRecycleView;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d(TAG,"begin onCreate");
+        Log.d(TAG, "begin onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar = (ProgressBar) findViewById(R.id.progress);
@@ -73,14 +73,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     String username = editTextUsername.getText().toString();
-//                    if (username.length() > 0) loadForecastInfo(username);
+                    if (username.length() > 0) loadForecastInfo(username);
                     return true;
                 }
                 return false;
             }
         });
 
-        Log.d(TAG,"begin onCreate");
     }
 
     @Override
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         infoTextView.setVisibility(View.GONE);
         SunShineApplication application = SunShineApplication.get(this);
         HFService hfService = application.getHFService();
-        subscription = hfService.hfWeather(city,KEY)
+        subscription = hfService.hfWeather(city, KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
 //                .map(weatherAPI -> weatherAPI.mHeWeatherDataService30s.get(0))
@@ -138,14 +137,14 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "Repos loaded " + weather);
                         ForecastAdapter adapter =
                                 (ForecastAdapter) reposRecycleView.getAdapter();
-                        adapter.setWeather(weather.dailyForecast);
+                        adapter.setWeather(weather);
                         adapter.notifyDataSetChanged();
                     }
                 });
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
-        ForecastAdapter adapter = new ForecastAdapter();
+        ForecastAdapter adapter = new ForecastAdapter(this.getApplicationContext());
         adapter.setCallback(new ForecastAdapter.Callback() {
 
             @Override

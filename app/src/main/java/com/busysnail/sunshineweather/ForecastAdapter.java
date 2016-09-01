@@ -2,6 +2,7 @@ package com.busysnail.sunshineweather;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +20,34 @@ import java.util.List;
  * address: Xidian University
  */
 
-public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
+public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private Context mContext;
     private Callback mCallback;
-    private List<Weather.DailyForecastEntity > mForcastInfo;
+    private LayoutInflater inflater;
+    private Weather mWeather;
+    private List<Weather.DailyForecastEntity> mForcastInfo;
+
+    public static final int TYPE_BASIC = 0x0;
+    public static final int TYPE_FORECAST = 0x1;
 
 
-
-    public ForecastAdapter() {
-
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_BASIC;
+        }
+        return TYPE_FORECAST;
     }
 
-    public void setWeather( List<Weather.DailyForecastEntity > mForcastInfo) {
-        this.mForcastInfo = mForcastInfo;
+    public ForecastAdapter(Context context) {
+        this.mContext = context;
+        inflater = LayoutInflater.from(mContext);
+    }
+
+    public void setWeather(Weather weather) {
+        this.mWeather = weather;
+        mForcastInfo = weather.dailyForecast;
     }
 
     public void setCallback(Callback callback) {
@@ -39,47 +55,74 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     @Override
-    public ForecastViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_forecast, parent, false);
-        final ForecastViewHolder viewHolder = new ForecastViewHolder(itemView);
-        viewHolder.contentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallback.onItemClick();
-            }
-        });
-
-        return viewHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case TYPE_BASIC:
+                return new BasicViewHolder(inflater.inflate(R.layout.item_basic, parent, false));
+            case TYPE_FORECAST:
+                return new ForecastViewHolder(inflater.inflate(R.layout.item_forecast, parent, false));
+            default:
+                return null;
+        }
     }
 
 
-
     @Override
-    public void onBindViewHolder(ForecastViewHolder holder, int position) {
-        Weather.DailyForecastEntity dailyForecastEntity=mForcastInfo.get(position);
-        Context context=holder.contentLayout.getContext();
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d("busysnail", mWeather.toString());
+        int itemType = getItemViewType(position);
+        switch (itemType) {
+            case TYPE_BASIC:
+                BasicViewHolder basicHolder = (BasicViewHolder) holder;
 
-        try {
-            holder.forcastDate.setText(Util.dayForWeek(dailyForecastEntity.date));
-        } catch (Exception e) {
-            e.printStackTrace();
+                basicHolder.cityname.setText(String.format(" %s . %s", mWeather.basic.cnty, mWeather.basic.city));
+                basicHolder.nowTemp.setText(String.format("%s℃", mWeather.now.tmp));
+                basicHolder.maxTemp.setText(String.format("↑ %s °", mWeather.dailyForecast.get(0).tmp.max));
+                basicHolder.minTemp.setText(String.format("↓ %s °", mWeather.dailyForecast.get(0).tmp.min));
+                Picasso.with(mContext)
+                        .load(Constants.ICON_URL + mWeather + mWeather.now.cond.code + ".png")
+                        .placeholder(R.drawable.holding_icon)
+                        .error(R.drawable.holding_icon)
+                        .into(basicHolder.weatherIcon);
+                //这里有个坑，如果查询外国城市，那么Weather.aqi这一项是没有的，所以setText之前必须判空，否则会有空指针异常
+                if (mWeather.aqi != null) {
+                    basicHolder.airPM.setText(String.format("PM2.5： %s", mWeather.aqi.city.pm25));
+                    basicHolder.airQuality.setText(String.format("空气质量： %s", mWeather.aqi.city.qlty));
+                } else {
+                    basicHolder.airPM.setText(String.format("PM2.5： %s", "无资料"));
+                    basicHolder.airQuality.setText(String.format("空气质量： %s", "无资料"));
+                }
+
+                break;
+
+            case TYPE_FORECAST:
+                Weather.DailyForecastEntity dailyForecastEntity = mForcastInfo.get(position);
+                ForecastViewHolder forecastHolder = (ForecastViewHolder) holder;
+
+                try {
+                    forecastHolder.forcastDate.setText(Util.dayForWeek(dailyForecastEntity.date));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                forecastHolder.forcastTemp.setText(String.format("%s° %s°",
+                        dailyForecastEntity.tmp.min,
+                        dailyForecastEntity.tmp.max));
+                forecastHolder.forcastText.setText(String.format("%s  %s %s %s km/h 降水概率 %s%%",
+                        dailyForecastEntity.cond.txtD,
+                        dailyForecastEntity.wind.sc,
+                        dailyForecastEntity.wind.dir,
+                        dailyForecastEntity.wind.spd,
+                        dailyForecastEntity.pop));
+                Picasso.with(mContext)
+                        .load(Constants.ICON_URL + dailyForecastEntity.cond.codeD + ".png")
+                        .placeholder(R.drawable.holding_icon)
+                        .error(R.drawable.holding_icon)
+                        .into(forecastHolder.forcastIcon);
+                break;
+            default:
+                break;
         }
-        holder.forcastTemp.setText(String.format("%s° %s°",
-                dailyForecastEntity.tmp.min,
-                dailyForecastEntity.tmp.max));
-        holder.forcastText.setText( String.format("%s。 最高%s℃。 %s %s %s km/h。 降水几率 %s%%。",
-                dailyForecastEntity.cond.txtD,
-                dailyForecastEntity.tmp.max,
-                dailyForecastEntity.wind.sc,
-                dailyForecastEntity.wind.dir,
-                dailyForecastEntity.wind.spd,
-                dailyForecastEntity.pop));
-        Picasso.with(holder.contentLayout.getContext())
-                .load(Constants.ICON_URL+dailyForecastEntity.cond.codeD+".png")
-                .placeholder(R.drawable.holding_icon)
-                .error(R.drawable.holding_icon)
-                .into(holder.forcastIcon);
+
     }
 
     @Override
@@ -108,6 +151,29 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             forcastText = (TextView) itemView.findViewById(R.id.forecast_txt);
             forcastIcon = (ImageView) itemView.findViewById(R.id.forecast_icon);
 
+        }
+    }
+
+    class BasicViewHolder extends RecyclerView.ViewHolder {
+        View contentlayout;
+        ImageView weatherIcon;
+        TextView cityname;
+        TextView nowTemp;
+        TextView minTemp;
+        TextView maxTemp;
+        TextView airPM;
+        TextView airQuality;
+
+        public BasicViewHolder(View itemView) {
+            super(itemView);
+            contentlayout = itemView.findViewById(R.id.cardview);
+            weatherIcon = (ImageView) itemView.findViewById(R.id.weather_icon);
+            cityname = (TextView) itemView.findViewById(R.id.city_name);
+            nowTemp = (TextView) itemView.findViewById(R.id.temp_now);
+            maxTemp = (TextView) itemView.findViewById(R.id.temp_max);
+            minTemp = (TextView) itemView.findViewById(R.id.temp_min);
+            airPM = (TextView) itemView.findViewById(R.id.air_pm25);
+            airQuality = (TextView) itemView.findViewById(R.id.air_quality);
         }
     }
 
