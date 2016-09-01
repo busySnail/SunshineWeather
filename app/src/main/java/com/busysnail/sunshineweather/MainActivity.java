@@ -1,6 +1,7 @@
 package com.busysnail.sunshineweather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.busysnail.sunshineweather.model.Weather;
 import com.busysnail.sunshineweather.model.WeatherAPI;
 
 import java.util.List;
+import java.util.Observable;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -42,15 +45,16 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView infoTextView;
     private ImageButton searchButton;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d(TAG, "begin onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         infoTextView = (TextView) findViewById(R.id.text_info);
+        imageView= (ImageView) findViewById(R.id.imageview);
         //Set up ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); //有问题
@@ -97,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
         subscription = hfService.hfWeather(city, KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
-//                .map(weatherAPI -> weatherAPI.mHeWeatherDataService30s.get(0))
+                .filter(new Func1<WeatherAPI, Boolean>() {
+                    @Override
+                    public Boolean call(WeatherAPI weatherAPI) {
+                        return !weatherAPI.mHeWeatherDataService30s.get(0).status.equals("unknown city");
+                    }
+                })
                 .map(new Func1<WeatherAPI, Weather>() {
                     @Override
                     public Weather call(WeatherAPI weatherAPI) {
@@ -141,15 +150,19 @@ public class MainActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                 });
+
+        imageView.setVisibility(View.GONE);
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         ForecastAdapter adapter = new ForecastAdapter(this.getApplicationContext());
-        adapter.setCallback(new ForecastAdapter.Callback() {
+        adapter.setCallback(new ForecastAdapter.OnItemClickListener() {
 
             @Override
-            public void onItemClick() {
-
+            public void onItemClick(Weather weather) {
+                Intent intent=new Intent(MainActivity.this,DetailActivity.class);
+                intent.putExtra(Constants.WEATHER,weather);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);

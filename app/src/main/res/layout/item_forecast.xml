@@ -8,7 +8,10 @@
     android:layout_marginLeft="@dimen/vertical_margin"
     android:layout_marginRight="@dimen/vertical_margin"
     android:layout_marginTop="@dimen/vertical_margin_half"
-    card_view:cardCornerRadius="2dp">
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="1dp"
+    card_view:cardBackgroundColor="@color/cardview_light_background">
 
     <LinearLayout
         android:id="@+id/layout_content"
@@ -35,18 +38,18 @@
                 android:id="@+id/forecast_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="今日"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/secondary_text"/>
 
             <TextView
                 android:id="@+id/forecast_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="5° 13°"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/secondary_text"/>
 
             <TextView
                 android:id="@+id/forecast_txt"

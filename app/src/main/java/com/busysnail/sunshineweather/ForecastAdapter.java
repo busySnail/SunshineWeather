@@ -23,7 +23,7 @@ import java.util.List;
 public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private Callback mCallback;
+    private OnItemClickListener listener;
     private LayoutInflater inflater;
     private Weather mWeather;
     private List<Weather.DailyForecastEntity> mForcastInfo;
@@ -50,10 +50,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mForcastInfo = weather.dailyForecast;
     }
 
-    public void setCallback(Callback callback) {
-        this.mCallback = callback;
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
@@ -76,11 +72,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 BasicViewHolder basicHolder = (BasicViewHolder) holder;
 
                 basicHolder.cityname.setText(String.format(" %s . %s", mWeather.basic.cnty, mWeather.basic.city));
-                basicHolder.nowTemp.setText(String.format("%s℃", mWeather.now.tmp));
+                basicHolder.nowTemp.setText(String.format("%s℃  ", mWeather.now.tmp));
                 basicHolder.maxTemp.setText(String.format("↑ %s °", mWeather.dailyForecast.get(0).tmp.max));
                 basicHolder.minTemp.setText(String.format("↓ %s °", mWeather.dailyForecast.get(0).tmp.min));
                 Picasso.with(mContext)
-                        .load(Constants.ICON_URL + mWeather + mWeather.now.cond.code + ".png")
+                        .load(Constants.ICON_URL + mWeather.now.cond.code + ".png")
                         .placeholder(R.drawable.holding_icon)
                         .error(R.drawable.holding_icon)
                         .into(basicHolder.weatherIcon);
@@ -100,11 +96,16 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ForecastViewHolder forecastHolder = (ForecastViewHolder) holder;
 
                 try {
-                    forecastHolder.forcastDate.setText(Util.dayForWeek(dailyForecastEntity.date));
+                    if(position==1){
+                        forecastHolder.forcastDate.setText("明天");
+                    }else{
+                        forecastHolder.forcastDate.setText(Util.dayForWeek(dailyForecastEntity.date));
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                forecastHolder.forcastTemp.setText(String.format("%s° %s°",
+                forecastHolder.forcastTemp.setText(String.format("↓%s° ↑%s°",
                         dailyForecastEntity.tmp.min,
                         dailyForecastEntity.tmp.max));
                 forecastHolder.forcastText.setText(String.format("%s  %s %s %s km/h 降水概率 %s%%",
@@ -130,9 +131,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mForcastInfo.size();
     }
 
-    interface Callback {
-        void onItemClick();
-    }
+
 
     class ForecastViewHolder extends RecyclerView.ViewHolder {
 
@@ -174,8 +173,22 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             minTemp = (TextView) itemView.findViewById(R.id.temp_min);
             airPM = (TextView) itemView.findViewById(R.id.air_pm25);
             airQuality = (TextView) itemView.findViewById(R.id.air_quality);
+
+            contentlayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(mWeather);
+                }
+            });
         }
     }
 
+    interface OnItemClickListener {
+        void onItemClick(Weather weather);
+    }
+
+    public void setCallback(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
 }
