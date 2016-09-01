@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         infoTextView = (TextView) findViewById(R.id.text_info);
         //Set up ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar); //有问题
+        setSupportActionBar(toolbar); //有问题
         //Set up RecyclerView
         reposRecycleView = (RecyclerView) findViewById(R.id.repos_recycler_view);
         setupRecyclerView(reposRecycleView);

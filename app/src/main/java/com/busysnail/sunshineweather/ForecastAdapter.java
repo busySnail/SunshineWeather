@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.busysnail.sunshineweather.model.Weather;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -59,7 +60,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         Weather.DailyForecastEntity dailyForecastEntity=mForcastInfo.get(position);
         Context context=holder.contentLayout.getContext();
 
-        holder.forcastDate.setText(dailyForecastEntity.date);
+        try {
+            holder.forcastDate.setText(Util.dayForWeek(dailyForecastEntity.date));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.forcastTemp.setText(String.format("%s° %s°",
                 dailyForecastEntity.tmp.min,
                 dailyForecastEntity.tmp.max));
@@ -70,7 +75,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
                 dailyForecastEntity.wind.dir,
                 dailyForecastEntity.wind.spd,
                 dailyForecastEntity.pop));
-        holder.forcastIcon.setImageResource(R.drawable.octocat);
+        Picasso.with(holder.contentLayout.getContext())
+                .load(Constants.ICON_URL+dailyForecastEntity.cond.codeD+".png")
+                .placeholder(R.drawable.holding_icon)
+                .error(R.drawable.holding_icon)
+                .into(holder.forcastIcon);
     }
 
     @Override

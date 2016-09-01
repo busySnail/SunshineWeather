@@ -9,8 +9,8 @@
     <string name="error_loading_repos">Oops, something went wrong</string>
     <string name="text_empty_repos">This account doesn\'t have any public repository</string>
     <string name="error_username_not_found">没有该城市天气信息</string>
-    <string name="hit_cityname">输入城市名 如“西安”</string>
-    <string name="default_info_message">输入中国城市名查看今后一周天气预报</string>
+    <string name="hit_cityname">输入城市名 如“西安”“Paris”</string>
+    <string name="default_info_message">输入城市名查看一周天气预报</string>
     <string name="text_fork">This repository is a fork</string>
     <string name="text_language">Language: %s</string>
 </resources>
