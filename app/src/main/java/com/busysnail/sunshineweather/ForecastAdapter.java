@@ -65,7 +65,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.d("busysnail", mWeather.toString());
         int itemType = getItemViewType(position);
         switch (itemType) {
             case TYPE_BASIC:
@@ -175,6 +174,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             airQuality = (TextView) itemView.findViewById(R.id.air_quality);
 
             contentlayout.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
                     listener.onItemClick(mWeather);

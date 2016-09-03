@@ -1,5 +1,6 @@
 package com.busysnail.sunshineweather;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.busysnail.sunshineweather.model.Weather;
 
 
+
+
 /**
  * author: malong on 2016/9/1
  * email: malong_ilp@163.com
@@ -18,16 +21,17 @@ import com.busysnail.sunshineweather.model.Weather;
 
 public class DetailActivity extends AppCompatActivity {
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         TextView test= (TextView) findViewById(R.id.tv_test);
-        Intent intent=getIntent();
-        Weather weather= (Weather) intent.getSerializableExtra(Constants.WEATHER);
+        Weather weather= (Weather) getIntent().getSerializableExtra(Constants.WEATHER);
+        test.setText(weather.toString());
+    }
 
-        if(weather!=null){
-            Log.d("detailactivity",weather.toString());
-            test.setText(weather.toString());
-        }
+    public static Intent newIntent(Context context,Weather weather){
+        Intent intent=new Intent(context,DetailActivity.class);
+        intent.putExtra(Constants.WEATHER,weather);
+        return intent;
     }
 }

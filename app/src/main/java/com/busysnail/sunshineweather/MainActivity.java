@@ -157,12 +157,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupRecyclerView(RecyclerView recyclerView) {
         ForecastAdapter adapter = new ForecastAdapter(this.getApplicationContext());
         adapter.setCallback(new ForecastAdapter.OnItemClickListener() {
-
             @Override
             public void onItemClick(Weather weather) {
-                Intent intent=new Intent(MainActivity.this,DetailActivity.class);
-                intent.putExtra(Constants.WEATHER,weather);
-                startActivity(intent);
+                startActivity(DetailActivity.newIntent(MainActivity.this,weather));
             }
         });
         recyclerView.setAdapter(adapter);
