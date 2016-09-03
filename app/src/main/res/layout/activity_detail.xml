@@ -42,7 +42,7 @@
         android:layout_marginBottom="@dimen/vertical_margin_half"
         android:layout_marginLeft="@dimen/vertical_margin"
         android:layout_marginRight="@dimen/vertical_margin"
-        android:layout_marginTop="@dimen/vertical_margin_half"
+        android:layout_marginTop="@dimen/vertical_margin"
         card_view:cardCornerRadius="2dp">
 
         <LinearLayout
@@ -72,11 +72,13 @@
                 android:id="@+id/air_info_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#969696"
                 android:text="实时天气1" />
             <TextView
                 android:id="@+id/air_info_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#969696"
                 android:text="实时天气1" />
         </LinearLayout>
 

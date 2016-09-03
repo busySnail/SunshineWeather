@@ -1,16 +1,8 @@
 <resources>
     <string name="app_name">SunshineWeather</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="text_stars">%d \nStars</string>
-    <string name="text_watchers">%d \nWatchers</string>
-    <string name="text_forks">%d \nForks</string>
-    <string name="error_loading_repos">Oops, something went wrong</string>
-    <string name="text_empty_repos">This account doesn\'t have any public repository</string>
-    <string name="error_username_not_found">没有该城市天气信息</string>
-    <string name="hit_cityname">输入城市名 如“西安”“Paris”</string>
+    <string name="action_settings">设置</string>
+    <string name="error_loading">下载过程中出错</string>
+    <string name="no_info">没有该城市天气信息</string>
+    <string name="hit_cityname">输入城市名 如 “西安” “Paris”</string>
     <string name="default_info_message">输入城市名查看一周天气预报</string>
-    <string name="text_fork">This repository is a fork</string>
-    <string name="text_language">Language: %s</string>
 </resources>

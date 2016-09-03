@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                loadForecastInfo(editTextUsername.getText().toString());
-                Log.d("busysnailtest-main","input cityname:"+editTextUsername.getText().toString());
                 presenter.loadForecast(editTextUsername.getText().toString());
             }
         });
@@ -83,15 +81,12 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                    String username = editTextUsername.getText().toString();
-//                    if (username.length() > 0) loadForecastInfo(username);
                     presenter.loadForecast(editTextUsername.getText().toString());
                     return true;
                 }
                 return false;
             }
         });
-
     }
 
     @Override
@@ -136,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
 
     @Override
     public void showForecast(Weather weather) {
-        Log.d("findbug","showForecast weather"+weather);
         ForecastAdapter adapter= (ForecastAdapter) forecastRecyclerView.getAdapter();
         adapter.setWeather(weather);
         adapter.notifyDataSetChanged();

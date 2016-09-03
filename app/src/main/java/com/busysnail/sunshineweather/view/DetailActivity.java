@@ -91,16 +91,27 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
 
     @Override
     public void showUpdateTime(Weather.BasicEntity basicEntity) {
-        updateTime.setText(String.format("更新时间：%s",basicEntity.update.loc));
+        updateTime.setText(String.format("更新时间：%s",basicEntity.update.loc.split(" ")[1]));
     }
 
     @Override
     public void showAirQuality(Weather.AqiEntity aqiEntity) {
+        airIndex.setText(String.format("空气污染指数：    %s          %s",aqiEntity.city.aqi,aqiEntity.city.qlty));
+        airInfo1.setText(String.format("CO    ：%10s       NO2：%10s       SO2：%10s",aqiEntity.city.co,aqiEntity.city.no2,aqiEntity.city.so2));
+        airInfo2.setText(String.format("PM2.5：%10s   PM10：%8s     O3： %10s",aqiEntity.city.pm25,aqiEntity.city.pm10,aqiEntity.city.o3));
 
     }
 
     @Override
     public void showSuggestion(Weather.SuggestionEntity suggestionEntity) {
+        dressIndex.setText(String.format("穿衣指数---%s", suggestionEntity.drsg.brf));
+        dressDes.setText(suggestionEntity.drsg.txt);
+
+        sportIndex.setText(String.format("运动指数---%s", suggestionEntity.sport.brf));
+        sportDes.setText(suggestionEntity.sport.txt);
+
+        travalIndex.setText(String.format("旅游指数---%s",suggestionEntity.trav.brf));
+        travalDes.setText(suggestionEntity.trav.txt);
 
     }
 }
