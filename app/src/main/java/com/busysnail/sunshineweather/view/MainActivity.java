@@ -1,8 +1,12 @@
 package com.busysnail.sunshineweather.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +14,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -18,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.busysnail.sunshineweather.Constants;
 import com.busysnail.sunshineweather.ForecastAdapter;
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
     private TextView infoTextView;
     private ImageButton searchButton;
     private ImageView imageView;
+    private View rootLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
         progressBar = (ProgressBar) findViewById(R.id.progress);
         infoTextView = (TextView) findViewById(R.id.text_info);
         imageView= (ImageView) findViewById(R.id.imageview);
+        rootLayout=findViewById(R.id.layout_root);
         //Set up ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
             }
         });
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -169,5 +179,33 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Snackbar.make(rootLayout,"test",Snackbar.LENGTH_SHORT)
+                        .setAction("这是Action", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this,"你点击了action", Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+                break;
+            case R.id.action_github:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GITHUB_URL)));
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

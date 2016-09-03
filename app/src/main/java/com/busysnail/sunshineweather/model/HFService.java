@@ -1,5 +1,7 @@
 package com.busysnail.sunshineweather.model;
 
+import com.busysnail.sunshineweather.Constants;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,15 +17,13 @@ import rx.Observable;
 
 public interface HFService {
 
-    String HOST = "https://api.heweather.com/x3/";
-
     @GET("weather")
     Observable<WeatherAPI> hfWeather(@Query("city") String city, @Query("key") String key);
 
     class Factory {
         public static HFService create() {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(" https://api.heweather.com/x3/")
+                    .baseUrl(Constants.BASIC_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();

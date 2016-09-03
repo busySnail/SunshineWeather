@@ -5,4 +5,5 @@
     <string name="no_info">没有该城市天气信息</string>
     <string name="hit_cityname">输入城市名 如 “西安” “Paris”</string>
     <string name="default_info_message">输入城市名查看一周天气预报</string>
+    <string name="action_github">进入我的Github</string>
 </resources>

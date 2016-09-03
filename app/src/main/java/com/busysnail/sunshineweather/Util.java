@@ -22,25 +22,6 @@ import java.util.Calendar;
 
 public class Util {
 
-
-
-
-
-    /**
-     * 只关注是否联网
-     */
-    public static boolean isNetworkConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            if (mNetworkInfo != null) {
-                return mNetworkInfo.isAvailable();
-            }
-        }
-        return false;
-    }
-
     /**
      * 判断当前日期是星期几
      *
@@ -79,30 +60,6 @@ public class Util {
                 break;
         }
         return week;
-    }
-
-    public static int getIconResourceForWeatherCondition(int weatherId) {
-        // Based on weather code data found at:
-        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
-        if (weatherId >= 300 && weatherId <= 303 || weatherId>=310 &&weatherId<=312 ) {
-            return R.drawable.ic_storm;
-        } else if (weatherId >= 305 && weatherId <= 306) {
-            return R.drawable.ic_light_rain;
-        } else if (weatherId ==307) {
-            return R.drawable.ic_rain;
-        } else if (weatherId >=400 && weatherId<=403) {
-            return R.drawable.ic_snow;
-        } else if (weatherId >= 500 && weatherId <= 502) {
-            return R.drawable.ic_fog;
-        } else if (weatherId == 100) {
-            return R.drawable.ic_clear;
-        } else if (weatherId == 102) {
-            return R.drawable.ic_light_clouds;
-        } else if (weatherId >= 101 && weatherId <=103) {
-            return R.drawable.ic_cloudy;
-        }
-        return -1;
-
     }
 
     /**
@@ -159,6 +116,5 @@ public class Util {
             }
         }
     }
-
 
 }
