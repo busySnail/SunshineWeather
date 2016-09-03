@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.busysnail.sunshineweather.Constants;
 import com.busysnail.sunshineweather.R;
+import com.busysnail.sunshineweather.Util;
 import com.busysnail.sunshineweather.model.Weather;
 import com.busysnail.sunshineweather.presenter.DetailPresenter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,6 +40,12 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
     private TextView sportDes;
     private TextView travalIndex;
     private TextView travalDes;
+    private ImageView weatherIcon;
+    private TextView basicCond;
+    private TextView basicWind;
+    private TextView basicOther;
+    private TextView basicInfo;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,11 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
         sportDes = (TextView) findViewById(R.id.sport_des);
         travalIndex = (TextView) findViewById(R.id.travel_index);
         travalDes = (TextView) findViewById(R.id.travel_des);
+        weatherIcon= (ImageView) findViewById(R.id.weather_icon);
+        basicCond= (TextView) findViewById(R.id.basic_cond);
+        basicWind= (TextView) findViewById(R.id.basic_wind);
+        basicOther= (TextView) findViewById(R.id.basic_other);
+        basicInfo= (TextView) findViewById(R.id.basic_info);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,6 +101,30 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(String.format("%s 详细天气信息",basicEntity.city));
         }
+    }
+
+    @Override
+    public void showBasic(Weather weather) throws Exception {
+        Weather.DailyForecastEntity entity=weather.dailyForecast.get(0);
+        Picasso.with(this)
+                .load(Constants.ICON_URL + weather.now.cond.code + ".png")
+                .placeholder(R.drawable.holding_icon)
+                .error(R.drawable.holding_icon)
+                .into(weatherIcon);
+        basicInfo.setText(String.format("今天是：%s  %s",
+                weather.dailyForecast.get(0).date,
+                Util.dayForWeek( entity.date)));
+        basicCond.setText(String.format("白天：%5s     夜间：%5s",
+                entity.cond.txtD,
+                entity.cond.txtN));
+        basicWind.setText(String.format("风力：%5s    风向：%5s\n风速：%4skm/h",
+                entity.wind.sc,
+                entity.wind.dir,
+                entity.wind.spd
+                ));
+        basicOther.setText(String.format("湿度：%5s%%     气压%5s hPa",
+                entity.hum,
+                entity.pres));
     }
 
     @Override

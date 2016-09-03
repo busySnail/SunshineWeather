@@ -8,7 +8,7 @@
     tools:activity=".DetailActivity">
 
     <LinearLayout
-        android:id="@+id/layout_air_quality"
+        android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -24,205 +24,301 @@
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <TextView
-            android:gravity="end"
-            android:layout_marginEnd="16dp"
             android:id="@+id/update_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="更新时间" />
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="更新时间"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/layout_suggestion"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_air_quality"
-        android:layout_marginBottom="@dimen/vertical_margin_half"
-        android:layout_marginLeft="@dimen/vertical_margin"
-        android:layout_marginRight="@dimen/vertical_margin"
-        android:layout_marginTop="@dimen/vertical_margin"
-        card_view:cardCornerRadius="2dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="空气质量" />
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:id="@+id/air_index"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="实时天气1" />
-
-            <TextView
-                android:id="@+id/air_info_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#969696"
-                android:text="实时天气1" />
-            <TextView
-                android:id="@+id/air_info_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#969696"
-                android:text="实时天气1" />
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/air_forecast_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/vertical_margin_half"
-        android:layout_marginLeft="@dimen/vertical_margin"
-        android:layout_marginRight="@dimen/vertical_margin"
-        android:layout_marginTop="@dimen/vertical_margin_half"
-        android:layout_below="@id/layout_suggestion"
-        card_view:cardCornerRadius="2dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="生活建议"/>
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/icon_cloth"/>
-
-                <LinearLayout
-                    android:layout_marginStart="64dp"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/dress_index"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="穿衣指数---"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:id="@+id/dress_des"
-                        android:layout_marginTop="2dp"
-                        android:textColor="#969696"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/icon_sport"/>
-
-                <LinearLayout
-                    android:layout_marginStart="64dp"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/sport_index"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="运动指数---"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:id="@+id/sport_des"
-                        android:layout_marginTop="2dp"
-                        android:textColor="#969696"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/icon_travel"/>
-
-                <LinearLayout
-                    android:layout_marginStart="64dp"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/travel_index"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="旅游指数---"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:id="@+id/travel_des"
-                        android:layout_marginTop="2dp"
-                        android:textColor="#969696"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-        </LinearLayout>
+        android:layout_below="@id/layout_header">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/layout_basic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_header"
+                android:layout_marginBottom="@dimen/vertical_margin_half"
+                android:layout_marginLeft="@dimen/vertical_margin"
+                android:layout_marginRight="@dimen/vertical_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
+                card_view:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/weather_icon"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/holding_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="基本信息"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/basic_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:textColor="#969696"
+                            android:text="实时天气1" />
+
+                        <TextView
+                            android:id="@+id/basic_cond"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:textColor="#969696"
+                            android:text="实时天气1" />
+
+                        <TextView
+                            android:id="@+id/basic_wind"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="实时天气1"
+                            android:textColor="#969696" />
+
+                        <TextView
+                            android:id="@+id/basic_other"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="实时天气1"
+                            android:textColor="#969696" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/layout_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_basic"
+                android:layout_marginBottom="@dimen/vertical_margin_half"
+                android:layout_marginLeft="@dimen/vertical_margin"
+                android:layout_marginRight="@dimen/vertical_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
+                card_view:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="空气质量"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/air_index"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#969696"
+                        android:text="实时天气1" />
+
+                    <TextView
+                        android:id="@+id/air_info_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="实时天气1"
+                        android:textColor="#969696" />
+
+                    <TextView
+                        android:id="@+id/air_info_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="实时天气1"
+                        android:textColor="#969696" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/air_forecast_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_suggestion"
+                android:layout_marginBottom="@dimen/vertical_margin_half"
+                android:layout_marginLeft="@dimen/vertical_margin"
+                android:layout_marginRight="@dimen/vertical_margin"
+                android:layout_marginTop="@dimen/vertical_margin_half"
+                card_view:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="生活建议"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_cloth" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/dress_index"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="穿衣指数---" />
+
+                            <TextView
+                                android:id="@+id/dress_des"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#969696"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_sport" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/sport_index"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="运动指数---" />
+
+                            <TextView
+                                android:id="@+id/sport_des"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#969696"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_travel" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/travel_index"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="旅游指数---" />
+
+                            <TextView
+                                android:id="@+id/travel_des"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#969696"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 
-
+    </ScrollView>
 </RelativeLayout>

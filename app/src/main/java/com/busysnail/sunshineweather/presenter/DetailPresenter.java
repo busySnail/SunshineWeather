@@ -27,6 +27,11 @@ public class DetailPresenter implements Presenter<DetailMvpView> {
     public void showDetail(Weather weather){
         detailMvpView.showCity(weather.basic);
 
+        try {
+            detailMvpView.showBasic(weather);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         detailMvpView.showUpdateTime(weather.basic);
         detailMvpView.showAirQuality(weather.aqi);
         detailMvpView.showSuggestion(weather.suggestion);
