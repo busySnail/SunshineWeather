@@ -46,6 +46,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setWeather(Weather weather) {
+        Log.d("busysnail",weather.toString());
         this.mWeather = weather;
         mForcastInfo = weather.dailyForecast;
     }
@@ -183,7 +184,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(Weather weather);
     }
 

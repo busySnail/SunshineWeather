@@ -1,7 +1,6 @@
-package com.busysnail.sunshineweather;
+package com.busysnail.sunshineweather.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,12 +19,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.busysnail.sunshineweather.Constants;
+import com.busysnail.sunshineweather.ForecastAdapter;
+import com.busysnail.sunshineweather.R;
+import com.busysnail.sunshineweather.SunShineApplication;
 import com.busysnail.sunshineweather.model.HFService;
 import com.busysnail.sunshineweather.model.Weather;
 import com.busysnail.sunshineweather.model.WeatherAPI;
-
-import java.util.List;
-import java.util.Observable;
+import com.busysnail.sunshineweather.presenter.MainPresenter;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -33,13 +34,14 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainMvpView{
 
     private static final String TAG = "MainActivity";
-    public static final String KEY = "f1eec20bca1e4c899dff787c8eeed52f";
 
-    private Subscription subscription;
-    private RecyclerView reposRecycleView;
+    private MainPresenter presenter;
+
+//    private Subscription subscription;
+    private RecyclerView forecastRecyclerView;
     private Toolbar toolbar;
     private EditText editTextUsername;
     private ProgressBar progressBar;
@@ -51,22 +53,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        presenter=new MainPresenter();
+        presenter.attach(this);
+
         setContentView(R.layout.activity_main);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         infoTextView = (TextView) findViewById(R.id.text_info);
         imageView= (ImageView) findViewById(R.id.imageview);
         //Set up ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); //有问题
+        setSupportActionBar(toolbar);
         //Set up RecyclerView
-        reposRecycleView = (RecyclerView) findViewById(R.id.repos_recycler_view);
-        setupRecyclerView(reposRecycleView);
+        forecastRecyclerView = (RecyclerView) findViewById(R.id.repos_recycler_view);
+        setupRecyclerView(forecastRecyclerView);
         // Set up search button
         searchButton = (ImageButton) findViewById(R.id.button_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadForecastInfo(editTextUsername.getText().toString());
+//                loadForecastInfo(editTextUsername.getText().toString());
+                Log.d("busysnailtest-main","input cityname:"+editTextUsername.getText().toString());
+                presenter.loadForecast(editTextUsername.getText().toString());
             }
         });
         //Set up username EditText
@@ -76,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String username = editTextUsername.getText().toString();
-                    if (username.length() > 0) loadForecastInfo(username);
+//                    String username = editTextUsername.getText().toString();
+//                    if (username.length() > 0) loadForecastInfo(username);
+                    presenter.loadForecast(editTextUsername.getText().toString());
                     return true;
                 }
                 return false;
@@ -88,70 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        presenter.detachView();
         super.onDestroy();
-        if (subscription != null) subscription.unsubscribe();
-    }
-
-    public void loadForecastInfo(String city) {
-        progressBar.setVisibility(View.VISIBLE);
-        reposRecycleView.setVisibility(View.GONE);
-        infoTextView.setVisibility(View.GONE);
-        SunShineApplication application = SunShineApplication.get(this);
-        HFService hfService = application.getHFService();
-        subscription = hfService.hfWeather(city, KEY)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(application.defaultSubscribeScheduler())
-                .filter(new Func1<WeatherAPI, Boolean>() {
-                    @Override
-                    public Boolean call(WeatherAPI weatherAPI) {
-                        return !weatherAPI.mHeWeatherDataService30s.get(0).status.equals("unknown city");
-                    }
-                })
-                .map(new Func1<WeatherAPI, Weather>() {
-                    @Override
-                    public Weather call(WeatherAPI weatherAPI) {
-                        return weatherAPI.mHeWeatherDataService30s.get(0);
-                    }
-                })
-                .subscribe(new Subscriber<Weather>() {
-                    @Override
-                    public void onCompleted() {
-
-                        progressBar.setVisibility(View.GONE);
-                        if (reposRecycleView.getAdapter().getItemCount() > 0) {
-                            reposRecycleView.requestFocus();
-                            hideSoftKeyboard();
-                            reposRecycleView.setVisibility(View.VISIBLE);
-                        } else {
-                            infoTextView.setText(R.string.text_empty_repos);
-                            infoTextView.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "Error loading GitHub repos ", e);
-                        progressBar.setVisibility(View.GONE);
-                        if (e instanceof HttpException
-                                && ((HttpException) e).code() == 404) {
-                            infoTextView.setText(R.string.error_username_not_found);
-                        } else {
-                            infoTextView.setText(R.string.error_loading_repos);
-                        }
-                        infoTextView.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onNext(Weather weather) {
-                        Log.i(TAG, "Repos loaded " + weather);
-                        ForecastAdapter adapter =
-                                (ForecastAdapter) reposRecycleView.getAdapter();
-                        adapter.setWeather(weather);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-
-        imageView.setVisibility(View.GONE);
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
@@ -187,4 +133,47 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void showForecast(Weather weather) {
+        Log.d("findbug","showForecast weather"+weather);
+        ForecastAdapter adapter= (ForecastAdapter) forecastRecyclerView.getAdapter();
+        adapter.setWeather(weather);
+        adapter.notifyDataSetChanged();
+        forecastRecyclerView.requestFocus();
+        hideSoftKeyboard();
+        progressBar.setVisibility(View.INVISIBLE);
+        infoTextView.setVisibility(View.INVISIBLE);
+        forecastRecyclerView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showMessage(int stringId) {
+        progressBar.setVisibility(View.INVISIBLE);
+        infoTextView.setVisibility(View.VISIBLE);
+        forecastRecyclerView.setVisibility(View.INVISIBLE);
+        infoTextView.setText(getString(stringId));
+    }
+   // View.VISIBLE--->可见
+    //View.INVISIBLE--->不可见，但这个View仍然会占用在xml文件中所分配的布局空间，不重新layout
+    //View.GONE---->不可见，但这个View在ViewGroup中不保留位置，会重新layout，不再占用空间，那后面的view就会取代他的位置，
+
+    //这里遇到一个坑，重构为MVP后，一直出现adapter中weather空指针异常
+    //最终祸源是这里的View.GONE和View.INVISIBLE的区别引起的
+    //在获的资源（weather）之前，如果设置为INVISIBLE，那么recyclerview是会被初始化的，只不过是不可见，而getItemCount()又和weather相关
+    //而GONE则不被初始化
+    //解决办法1.用GONE替代INVISIBLE 2.getItemCount()中判空，为空的话返回0
+
+    @Override
+    public void showProgressIndicator() {
+        progressBar.setVisibility(View.VISIBLE);
+        infoTextView.setVisibility(View.GONE);
+        forecastRecyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }
