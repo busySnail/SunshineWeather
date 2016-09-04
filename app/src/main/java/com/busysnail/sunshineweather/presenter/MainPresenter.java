@@ -1,5 +1,7 @@
 package com.busysnail.sunshineweather.presenter;
 
+import android.util.Log;
+
 import com.busysnail.sunshineweather.Constants;
 import com.busysnail.sunshineweather.R;
 import com.busysnail.sunshineweather.SunShineApplication;
@@ -12,6 +14,7 @@ import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -51,12 +54,6 @@ public class MainPresenter implements Presenter<MainMvpView> {
         subscription=hfService.hfWeather(cityName, Constants.KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
-                .filter(new Func1<WeatherAPI, Boolean>() {
-                    @Override
-                    public Boolean call(WeatherAPI weatherAPI) {
-                        return !weatherAPI.mHeWeatherDataService30s.get(0).status.equals("unknown city");
-                    }
-                })
                 .map(new Func1<WeatherAPI, Weather>() {
                     @Override
                     public Weather call(WeatherAPI weatherAPI) {
@@ -67,7 +64,13 @@ public class MainPresenter implements Presenter<MainMvpView> {
                     @Override
                     public void onCompleted() {
                         if(weather!=null){
-                            mainMvpView.showForecast(weather);
+                            if(weather.status.equals("unknown city")){
+                                mainMvpView.showMessage(R.string.wrong_input);
+
+                            }else if(weather.status.equals("ok")){
+                                mainMvpView.showForecast(weather);
+                            }
+
                         }else{
                             mainMvpView.showMessage(R.string.no_info);
                         }

@@ -22,5 +22,4 @@
             android:parentActivityName=".view.MainActivity">
         </activity>
     </application>
-
 </manifest>

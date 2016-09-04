@@ -128,7 +128,10 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return mForcastInfo.size();
+        if(mForcastInfo!=null){
+            return mForcastInfo.size();
+        }
+       return 0;
     }
 
 
