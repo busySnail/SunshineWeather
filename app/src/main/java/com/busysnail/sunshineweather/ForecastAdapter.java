@@ -72,7 +72,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 BasicViewHolder basicHolder = (BasicViewHolder) holder;
 
                 basicHolder.cityname.setText(String.format(" %s . %s", mWeather.basic.cnty, mWeather.basic.city));
-                basicHolder.nowTemp.setText(String.format("%s℃  ", mWeather.now.tmp));
+                basicHolder.condText.setText(String.format("%s  ", mWeather.now.cond.txt));
                 basicHolder.maxTemp.setText(String.format("↑ %s °", mWeather.dailyForecast.get(0).tmp.max));
                 basicHolder.minTemp.setText(String.format("↓ %s °", mWeather.dailyForecast.get(0).tmp.min));
                 Picasso.with(mContext)
@@ -81,14 +81,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .error(R.drawable.holding_icon)
                         .into(basicHolder.weatherIcon);
                 //这里有个坑，如果查询外国城市，那么Weather.aqi这一项是没有的，所以setText之前必须判空，否则会有空指针异常
+                basicHolder.nowTemp.setText(String.format("实时温度：%s°",mWeather.now.tmp));
                 if (mWeather.aqi != null) {
-                    basicHolder.airPM.setText(String.format("PM2.5： %s", mWeather.aqi.city.pm25));
                     basicHolder.airQuality.setText(String.format("空气质量： %s", mWeather.aqi.city.qlty));
                 } else {
-                    basicHolder.airPM.setText(String.format("PM2.5： %s", "无资料"));
                     basicHolder.airQuality.setText(String.format("空气质量： %s", "无资料"));
                 }
-
                 break;
 
             case TYPE_FORECAST:
@@ -160,10 +158,10 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         View contentlayout;
         ImageView weatherIcon;
         TextView cityname;
-        TextView nowTemp;
+        TextView condText;
         TextView minTemp;
         TextView maxTemp;
-        TextView airPM;
+        TextView nowTemp;
         TextView airQuality;
 
         public BasicViewHolder(View itemView) {
@@ -171,10 +169,10 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             contentlayout = itemView.findViewById(R.id.cardview);
             weatherIcon = (ImageView) itemView.findViewById(R.id.weather_icon);
             cityname = (TextView) itemView.findViewById(R.id.city_name);
-            nowTemp = (TextView) itemView.findViewById(R.id.temp_now);
+            condText = (TextView) itemView.findViewById(R.id.temp_now);
             maxTemp = (TextView) itemView.findViewById(R.id.temp_max);
             minTemp = (TextView) itemView.findViewById(R.id.temp_min);
-            airPM = (TextView) itemView.findViewById(R.id.air_pm25);
+            nowTemp = (TextView) itemView.findViewById(R.id.air_pm25);
             airQuality = (TextView) itemView.findViewById(R.id.air_quality);
 
             contentlayout.setOnClickListener(new View.OnClickListener() {

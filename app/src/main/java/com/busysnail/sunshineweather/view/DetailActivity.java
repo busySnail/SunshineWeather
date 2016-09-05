@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +61,9 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
 
         Weather weather = (Weather) getIntent().getSerializableExtra(Constants.WEATHER);
        presenter.showDetail(weather);
+
+        getWindow().setEnterTransition(new Explode().setDuration(500));
+        getWindow().setExitTransition(new Explode().setDuration(500));
     }
 
     private void initView() {
