@@ -13,6 +13,9 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
+    <style name="WelcomeTheme" parent="AppTheme.NoActionBar">
+        <item name="android:background">@mipmap/welcome</item>
+    </style>
 
     <style name="LightEditText">
         <item name="colorControlNormal">@color/white_transparent</item>

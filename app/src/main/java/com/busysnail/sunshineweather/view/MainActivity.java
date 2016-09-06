@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
         adapter.setCallback(new ForecastAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Weather weather) {
-                startActivity(DetailActivity.newIntent(MainActivity.this,weather), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                startActivity(DetailActivity.newIntent(MainActivity.this,weather),
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
         recyclerView.setAdapter(adapter);
