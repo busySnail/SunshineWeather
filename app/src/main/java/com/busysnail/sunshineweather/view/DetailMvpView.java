@@ -6,11 +6,6 @@ import com.busysnail.sunshineweather.model.Weather;
 
 import java.util.List;
 
-/**
- * author: malong on 2016/9/3
- * email: malong_ilp@163.com
- * address: Xidian University
- */
 
 public interface DetailMvpView extends MvpView{
 

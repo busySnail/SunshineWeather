@@ -8,18 +8,13 @@ import com.busysnail.sunshineweather.model.HFService;
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
 
-/**
- * author: malong on 2016/9/1
- * email: malong_ilp@163.com
- * address: Xidian University
- */
 
-public class SunShineApplication extends Application{
+public class SunShineApplication extends Application {
     private HFService hfService;
     private Scheduler defaultSubscribeScheduler;
 
-    public static SunShineApplication get(Context context){
-        return (SunShineApplication)context.getApplicationContext();
+    public static SunShineApplication get(Context context) {
+        return (SunShineApplication) context.getApplicationContext();
     }
 
     public HFService getHFService() {

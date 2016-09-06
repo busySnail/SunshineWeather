@@ -21,13 +21,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-
-/**
- * author: malong on 2016/9/1
- * email: malong_ilp@163.com
- * address: Xidian University
- */
-
 public class DetailActivity extends AppCompatActivity implements DetailMvpView {
 
     private DetailPresenter presenter;

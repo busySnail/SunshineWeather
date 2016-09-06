@@ -44,13 +44,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 
-public class MainActivity extends AppCompatActivity implements MainMvpView{
-
-    private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity implements MainMvpView {
 
     private MainPresenter presenter;
 
-//    private Subscription subscription;
     private RecyclerView forecastRecyclerView;
     private Toolbar toolbar;
     private EditText editTextUsername;
@@ -64,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        presenter=new MainPresenter();
+        presenter = new MainPresenter();
         presenter.attach(this);
 
         setContentView(R.layout.activity_main);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         infoTextView = (TextView) findViewById(R.id.text_info);
-        imageView= (ImageView) findViewById(R.id.imageview);
-        rootLayout=findViewById(R.id.layout_root);
+        imageView = (ImageView) findViewById(R.id.imageview);
+        rootLayout = findViewById(R.id.layout_root);
         //Set up ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
         adapter.setCallback(new ForecastAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Weather weather) {
-                startActivity(DetailActivity.newIntent(MainActivity.this,weather),
+                startActivity(DetailActivity.newIntent(MainActivity.this, weather),
                         ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
@@ -145,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
 
     @Override
     public void showForecast(Weather weather) {
-        ForecastAdapter adapter= (ForecastAdapter) forecastRecyclerView.getAdapter();
+        ForecastAdapter adapter = (ForecastAdapter) forecastRecyclerView.getAdapter();
         adapter.setWeather(weather);
         adapter.notifyDataSetChanged();
         forecastRecyclerView.requestFocus();
@@ -163,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
         forecastRecyclerView.setVisibility(View.INVISIBLE);
         infoTextView.setText(getString(stringId));
     }
-   // View.VISIBLE--->可见
+    // View.VISIBLE--->可见
     //View.INVISIBLE--->不可见，但这个View仍然会占用在xml文件中所分配的布局空间，不重新layout
     //View.GONE---->不可见，但这个View在ViewGroup中不保留位置，会重新layout，不再占用空间，那后面的view就会取代他的位置，
 
@@ -187,19 +184,19 @@ public class MainActivity extends AppCompatActivity implements MainMvpView{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
-                Snackbar.make(rootLayout,"test",Snackbar.LENGTH_SHORT)
+                Snackbar.make(rootLayout, "test", Snackbar.LENGTH_SHORT)
                         .setAction("这是Action", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(MainActivity.this,"你点击了action", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "你点击了action", Toast.LENGTH_SHORT).show();
                             }
                         }).show();
                 break;

@@ -3,11 +3,6 @@ package com.busysnail.sunshineweather.presenter;
 import com.busysnail.sunshineweather.model.Weather;
 import com.busysnail.sunshineweather.view.DetailMvpView;
 
-/**
- * author: malong on 2016/9/3
- * email: malong_ilp@163.com
- * address: Xidian University
- */
 
 public class DetailPresenter implements Presenter<DetailMvpView> {
 
@@ -15,16 +10,16 @@ public class DetailPresenter implements Presenter<DetailMvpView> {
 
     @Override
     public void attach(DetailMvpView view) {
-        this.detailMvpView=view;
+        this.detailMvpView = view;
     }
 
     @Override
     public void detachView() {
-        this.detailMvpView=null;
+        this.detailMvpView = null;
 
     }
 
-    public void showDetail(Weather weather){
+    public void showDetail(Weather weather) {
         detailMvpView.showCity(weather.basic);
 
         try {

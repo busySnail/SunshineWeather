@@ -14,11 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * author: malong on 2016/9/1
- * email: malong_ilp@163.com
- * address: Xidian University
- */
 
 public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -46,7 +41,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setWeather(Weather weather) {
-        Log.d("busysnail",weather.toString());
+        Log.d("busysnail", weather.toString());
         this.mWeather = weather;
         mForcastInfo = weather.dailyForecast;
     }
@@ -81,7 +76,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .error(R.drawable.holding_icon)
                         .into(basicHolder.weatherIcon);
                 //这里有个坑，如果查询外国城市，那么Weather.aqi这一项是没有的，所以setText之前必须判空，否则会有空指针异常
-                basicHolder.nowTemp.setText(String.format("实时温度：%s°",mWeather.now.tmp));
+                basicHolder.nowTemp.setText(String.format("实时温度：%s°", mWeather.now.tmp));
                 if (mWeather.aqi != null) {
                     basicHolder.airQuality.setText(String.format("空气质量： %s", mWeather.aqi.city.qlty));
                 } else {
@@ -94,9 +89,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ForecastViewHolder forecastHolder = (ForecastViewHolder) holder;
 
                 try {
-                    if(position==1){
+                    if (position == 1) {
                         forecastHolder.forcastDate.setText("明天");
-                    }else{
+                    } else {
                         forecastHolder.forcastDate.setText(Util.dayForWeek(dailyForecastEntity.date));
                     }
 
@@ -126,12 +121,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        if(mForcastInfo!=null){
+        if (mForcastInfo != null) {
             return mForcastInfo.size();
         }
-       return 0;
+        return 0;
     }
-
 
 
     class ForecastViewHolder extends RecyclerView.ViewHolder {

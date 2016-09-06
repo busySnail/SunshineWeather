@@ -17,11 +17,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
-/**
- * author: malong on 2016/9/3
- * email: malong_ilp@163.com
- * address: Xidian University
- */
 
 public class MainPresenter implements Presenter<MainMvpView> {
 
@@ -32,26 +27,26 @@ public class MainPresenter implements Presenter<MainMvpView> {
     @Override
     public void attach(MainMvpView view) {
 
-        this.mainMvpView=view;
+        this.mainMvpView = view;
     }
 
     @Override
     public void detachView() {
 
-        this.mainMvpView=null;
-        if(subscription!=null){
+        this.mainMvpView = null;
+        if (subscription != null) {
             subscription.unsubscribe();
         }
     }
 
-    public void loadForecast(String cityNameEntered){
-        String cityName=cityNameEntered.trim();
-        if(cityName.isEmpty()) return;
+    public void loadForecast(String cityNameEntered) {
+        String cityName = cityNameEntered.trim();
+        if (cityName.isEmpty()) return;
         mainMvpView.showProgressIndicator();
         if (subscription != null) subscription.unsubscribe();
-        SunShineApplication application=SunShineApplication.get(mainMvpView.getContext());
-        HFService hfService=application.getHFService();
-        subscription=hfService.hfWeather(cityName, Constants.KEY)
+        SunShineApplication application = SunShineApplication.get(mainMvpView.getContext());
+        HFService hfService = application.getHFService();
+        subscription = hfService.hfWeather(cityName, Constants.KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
                 .map(new Func1<WeatherAPI, Weather>() {
@@ -63,31 +58,31 @@ public class MainPresenter implements Presenter<MainMvpView> {
                 .subscribe(new Subscriber<Weather>() {
                     @Override
                     public void onCompleted() {
-                        if(weather!=null){
-                            if(weather.status.equals("unknown city")){
+                        if (weather != null) {
+                            if (weather.status.equals("unknown city")) {
                                 mainMvpView.showMessage(R.string.wrong_input);
 
-                            }else if(weather.status.equals("ok")){
+                            } else if (weather.status.equals("ok")) {
                                 mainMvpView.showForecast(weather);
                             }
 
-                        }else{
+                        } else {
                             mainMvpView.showMessage(R.string.no_info);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        if(isHttp404(e)){
+                        if (isHttp404(e)) {
                             mainMvpView.showMessage(R.string.no_info);
-                        }else{
+                        } else {
                             mainMvpView.showMessage(R.string.error_loading);
                         }
                     }
 
                     @Override
                     public void onNext(Weather weather) {
-                        MainPresenter.this.weather=weather;
+                        MainPresenter.this.weather = weather;
                     }
                 });
     }
