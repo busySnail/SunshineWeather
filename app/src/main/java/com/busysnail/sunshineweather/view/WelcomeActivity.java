@@ -21,10 +21,20 @@ public class WelcomeActivity extends AppCompatActivity {
         mHandler.sendEmptyMessageDelayed(1, 1000);
     }
 
+    //通过静态内部类+弱引用解决了由非静态内部类引起的内存泄漏。
+    // 不过这样虽然避免了Activity泄漏，Looper线程的消息队列中还是可能会有待处理的消息，
+    // 所以我们在Activity的Destroy时或者Stop时应该移除消息队列中的消息。
+    //在这个例子里没必要，但这是一个良好的习惯
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
     private static class DelayHandler extends Handler {
         private WeakReference<WelcomeActivity> mActivity;
 
-         DelayHandler(WelcomeActivity activity) {
+        DelayHandler(WelcomeActivity activity) {
             mActivity = new WeakReference<>(activity);
         }
 
@@ -35,15 +45,5 @@ public class WelcomeActivity extends AppCompatActivity {
             mActivity.get().startActivity(intent);
             mActivity.get().finish();
         }
-    }
-
-    //通过静态内部类+弱引用解决了由非静态内部类引起的内存泄漏。
-    // 不过这样虽然避免了Activity泄漏，Looper线程的消息队列中还是可能会有待处理的消息，
-    // 所以我们在Activity的Destroy时或者Stop时应该移除消息队列中的消息。
-    //在这个例子里没必要，但这是一个良好的习惯
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
     }
 }
