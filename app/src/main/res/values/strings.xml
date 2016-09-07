@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SunshineWeather</string>
-    <string name="action_settings">设置</string>
+    <string name="action_settings">关于我</string>
     <string name="error_loading">网络未知错误</string>
     <string name="no_info">网络错误：404</string>
     <string name="hit_cityname">输入城市名 如 “西安” 或“xian”</string>
