@@ -26,7 +26,7 @@ public class SunShineApplication extends Application {
 
     public HFService getHFService() {
         if (hfService == null) {
-            hfService = HFService.Factory.create();
+            hfService = HFService.Factory.create(this);
         }
         return hfService;
     }
