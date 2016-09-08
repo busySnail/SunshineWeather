@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.busysnail.sunshineweather.model.HFService;
+import com.squareup.leakcanary.LeakCanary;
 
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
@@ -12,6 +13,12 @@ import rx.schedulers.Schedulers;
 public class SunShineApplication extends Application {
     private HFService hfService;
     private Scheduler defaultSubscribeScheduler;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        LeakCanary.install(this);
+    }
 
     public static SunShineApplication get(Context context) {
         return (SunShineApplication) context.getApplicationContext();
