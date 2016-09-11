@@ -7,4 +7,8 @@
     <string name="default_info_message">输入城市名查看一周天气预报</string>
     <string name="action_github">Github</string>
     <string name="wrong_input">亲，您的输入有误\n请输入正确的格式 如：“西安”或“xian”</string>
+    <string name="no_data">无该城市数据</string>
+    <string name="basic_data">基本信息</string>
+    <string name="air_quality">空气质量</string>
+    <string name="suggestion">生活建议</string>
 </resources>

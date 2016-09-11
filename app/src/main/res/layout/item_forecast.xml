@@ -43,13 +43,13 @@
                 android:textColor="@color/secondary_text"/>
 
             <TextView
+                android:textColor="#BDBDBD"
                 android:id="@+id/forecast_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/secondary_text"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/forecast_txt"
@@ -57,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/forecast_date"
                 android:layout_marginTop="4dp"
-                android:text="少云。最高12℃。东北风 10 到 15 km/h"
                 android:textColor="#969696"
                 android:textSize="10sp" />
 

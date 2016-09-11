@@ -13,9 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,20 +26,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.busysnail.sunshineweather.Constants;
-import com.busysnail.sunshineweather.ForecastAdapter;
+import com.busysnail.sunshineweather.common.Constants;
+import com.busysnail.sunshineweather.view.adapter.ForecastAdapter;
 import com.busysnail.sunshineweather.R;
-import com.busysnail.sunshineweather.SunShineApplication;
-import com.busysnail.sunshineweather.model.HFService;
 import com.busysnail.sunshineweather.model.Weather;
-import com.busysnail.sunshineweather.model.WeatherAPI;
 import com.busysnail.sunshineweather.presenter.MainPresenter;
-
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 
 public class MainActivity extends AppCompatActivity implements MainMvpView {
 

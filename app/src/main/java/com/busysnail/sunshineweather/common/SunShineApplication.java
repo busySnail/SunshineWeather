@@ -1,4 +1,4 @@
-package com.busysnail.sunshineweather;
+package com.busysnail.sunshineweather.common;
 
 import android.app.Application;
 import android.content.Context;

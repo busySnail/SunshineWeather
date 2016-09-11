@@ -1,9 +1,8 @@
 package com.busysnail.sunshineweather.model;
 
 import android.content.Context;
-import android.util.TimeUtils;
 
-import com.busysnail.sunshineweather.Constants;
+import com.busysnail.sunshineweather.common.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +24,7 @@ import rx.Observable;
 public interface HFService {
 
     @GET("weather")
-    Observable<WeatherAPI> hfWeather(@Query("city") String city, @Query("key") String key);
+    Observable<WeatherAPI> fetchWeather(@Query("city") String city, @Query("key") String key);
 
     class Factory {
         public static HFService create(Context context) {
@@ -37,7 +36,7 @@ public interface HFService {
                     .build();
             Retrofit retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(Constants.BASIC_URL)
+                    .baseUrl(Constants.HF_BASIC_FORECAST_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();

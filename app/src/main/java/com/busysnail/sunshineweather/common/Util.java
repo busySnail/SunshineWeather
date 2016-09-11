@@ -1,4 +1,4 @@
-package com.busysnail.sunshineweather;
+package com.busysnail.sunshineweather.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

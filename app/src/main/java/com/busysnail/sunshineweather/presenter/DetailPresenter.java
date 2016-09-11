@@ -28,8 +28,12 @@ public class DetailPresenter implements Presenter<DetailMvpView> {
             e.printStackTrace();
         }
         detailMvpView.showUpdateTime(weather.basic);
-        detailMvpView.showAirQuality(weather.aqi);
-        detailMvpView.showSuggestion(weather.suggestion);
+        if(weather.aqi!=null){
+            detailMvpView.showAirQuality(weather.aqi);
+            detailMvpView.showSuggestion(weather.suggestion);
+        }
+
+
     }
 
 }

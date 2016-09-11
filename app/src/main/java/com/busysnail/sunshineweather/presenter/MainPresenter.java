@@ -1,10 +1,8 @@
 package com.busysnail.sunshineweather.presenter;
 
-import android.util.Log;
-
-import com.busysnail.sunshineweather.Constants;
+import com.busysnail.sunshineweather.common.Constants;
 import com.busysnail.sunshineweather.R;
-import com.busysnail.sunshineweather.SunShineApplication;
+import com.busysnail.sunshineweather.common.SunShineApplication;
 import com.busysnail.sunshineweather.model.HFService;
 import com.busysnail.sunshineweather.model.Weather;
 import com.busysnail.sunshineweather.model.WeatherAPI;
@@ -14,7 +12,6 @@ import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 
@@ -46,7 +43,7 @@ public class MainPresenter implements Presenter<MainMvpView> {
         if (subscription != null) subscription.unsubscribe();
         SunShineApplication application = SunShineApplication.get(mainMvpView.getContext());
         HFService hfService = application.getHFService();
-        subscription = hfService.hfWeather(cityName, Constants.KEY)
+        subscription = hfService.fetchWeather(cityName, Constants.HF_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(application.defaultSubscribeScheduler())
                 .map(new Func1<WeatherAPI, Weather>() {

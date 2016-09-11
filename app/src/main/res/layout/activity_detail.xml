@@ -31,7 +31,6 @@
             android:layout_marginEnd="16dp"
             android:paddingBottom="8dp"
             android:gravity="end"
-            android:text="更新时间"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -65,7 +64,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="基本信息"/>
+                    android:text="@string/basic_data"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,29 +97,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:textColor="#969696"
-                            android:text="实时天气1" />
+                            android:textColor="#969696" />
 
                         <TextView
                             android:id="@+id/basic_cond"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:textColor="#969696"
-                            android:text="实时天气1" />
+                            android:textColor="#969696" />
 
                         <TextView
                             android:id="@+id/basic_wind"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="实时天气1"
                             android:textColor="#969696" />
 
                         <TextView
                             android:id="@+id/basic_other"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="实时天气1"
                             android:textColor="#969696" />
 
                     </LinearLayout>
@@ -154,7 +149,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="空气质量"
+                        android:text="@string/air_quality"
                         android:textSize="18sp" />
 
                     <TextView
@@ -163,20 +158,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:textColor="#969696"
-                        android:text="实时天气1" />
+                        android:text="@string/no_data" />
 
                     <TextView
                         android:id="@+id/air_info_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="实时天气1"
                         android:textColor="#969696" />
 
                     <TextView
                         android:id="@+id/air_info_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="实时天气1"
                         android:textColor="#969696" />
                 </LinearLayout>
 
@@ -207,7 +200,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="生活建议"
+                        android:text="@string/suggestion"
                         android:textSize="18sp" />
 
                     <LinearLayout
@@ -231,7 +224,7 @@
                                 android:id="@+id/dress_index"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="穿衣指数---" />
+                                android:text="@string/no_data"/>
 
                             <TextView
                                 android:id="@+id/dress_des"
@@ -265,7 +258,7 @@
                                 android:id="@+id/sport_index"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="运动指数---" />
+                                android:text="@string/no_data" />
 
                             <TextView
                                 android:id="@+id/sport_des"
@@ -300,7 +293,7 @@
                                 android:id="@+id/travel_index"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="旅游指数---" />
+                                android:text="@string/no_data" />
 
                             <TextView
                                 android:id="@+id/travel_des"

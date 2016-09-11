@@ -1,4 +1,4 @@
-package com.busysnail.sunshineweather;
+package com.busysnail.sunshineweather.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.busysnail.sunshineweather.common.Constants;
+import com.busysnail.sunshineweather.R;
+import com.busysnail.sunshineweather.common.Util;
 import com.busysnail.sunshineweather.model.Weather;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +39,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public ForecastAdapter(Context context) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -71,7 +74,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 basicHolder.maxTemp.setText(String.format("↑ %s °", mWeather.dailyForecast.get(0).tmp.max));
                 basicHolder.minTemp.setText(String.format("↓ %s °", mWeather.dailyForecast.get(0).tmp.min));
                 Picasso.with(mContext)
-                        .load(Constants.ICON_URL + mWeather.now.cond.code + ".png")
+                        .load(Constants.HF_WEATHER_ICON_URL + mWeather.now.cond.code + ".png")
                         .placeholder(R.drawable.holding_icon)
                         .error(R.drawable.holding_icon)
                         .into(basicHolder.weatherIcon);
@@ -108,7 +111,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         dailyForecastEntity.wind.spd,
                         dailyForecastEntity.pop));
                 Picasso.with(mContext)
-                        .load(Constants.ICON_URL + dailyForecastEntity.cond.codeD + ".png")
+                        .load(Constants.HF_WEATHER_ICON_URL + dailyForecastEntity.cond.codeD + ".png")
                         .placeholder(R.drawable.holding_icon)
                         .error(R.drawable.holding_icon)
                         .into(forecastHolder.forcastIcon);
@@ -163,7 +166,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             contentlayout = itemView.findViewById(R.id.cardview);
             weatherIcon = (ImageView) itemView.findViewById(R.id.weather_icon);
             cityname = (TextView) itemView.findViewById(R.id.city_name);
-            condText = (TextView) itemView.findViewById(R.id.temp_now);
+            condText = (TextView) itemView.findViewById(R.id.cond_now);
             maxTemp = (TextView) itemView.findViewById(R.id.temp_max);
             minTemp = (TextView) itemView.findViewById(R.id.temp_min);
             nowTemp = (TextView) itemView.findViewById(R.id.air_pm25);

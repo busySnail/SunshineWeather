@@ -7,19 +7,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.busysnail.sunshineweather.Constants;
+import com.busysnail.sunshineweather.common.Constants;
 import com.busysnail.sunshineweather.R;
-import com.busysnail.sunshineweather.Util;
+import com.busysnail.sunshineweather.common.Util;
 import com.busysnail.sunshineweather.model.Weather;
 import com.busysnail.sunshineweather.presenter.DetailPresenter;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity implements DetailMvpView {
 
@@ -52,7 +48,7 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
         setContentView(R.layout.activity_detail);
         initView();
 
-        Weather weather = (Weather) getIntent().getSerializableExtra(Constants.WEATHER);
+        Weather weather = (Weather) getIntent().getSerializableExtra(Constants.WEATHER_ENTITY);
        presenter.showDetail(weather);
 
         getWindow().setEnterTransition(new Explode().setDuration(500));
@@ -84,7 +80,7 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
 
     public static Intent newIntent(Context context, Weather weather) {
         Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(Constants.WEATHER, weather);
+        intent.putExtra(Constants.WEATHER_ENTITY, weather);
         return intent;
     }
 
@@ -106,7 +102,7 @@ public class DetailActivity extends AppCompatActivity implements DetailMvpView {
     public void showBasic(Weather weather) throws Exception {
         Weather.DailyForecastEntity entity=weather.dailyForecast.get(0);
         Picasso.with(this)
-                .load(Constants.ICON_URL + weather.now.cond.code + ".png")
+                .load(Constants.HF_WEATHER_ICON_URL + weather.now.cond.code + ".png")
                 .placeholder(R.drawable.holding_icon)
                 .error(R.drawable.holding_icon)
                 .into(weatherIcon);
